@@ -1,3 +1,5 @@
+import {getResource} from '../services/services';
+
 function cards() {
 // Using classes for cards
 
@@ -41,30 +43,21 @@ function cards() {
         }
     }
 
-    const getResource = async (url) => {
-        const res = await fetch(url);
+    getResource('http://localhost:3000/menu')
+        .then(data => {
+           //use destructuring, get properties from object in db.json file
+           data.forEach(({img, altimg, title, descr, price}) => {
+              new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+           });
+        });
 
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-        }
-
-        return await res.json();
-    };
-
-    // getResource('http://localhost:3000/menu')
+    // axios.get('http://localhost:3000/menu')
     //     .then(data => {
-    //        //use destructuring, get properties from object in db.json file
-    //        data.forEach(({img, altimg, title, descr, price}) => {
-    //           new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-    //        });
+    //         data.data.forEach(({img, altimg, title, descr, price}) => {
+    //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+    //         });
     //     });
 
-    axios.get('http://localhost:3000/menu')
-        .then(data => {
-            data.data.forEach(({img, altimg, title, descr, price}) => {
-                new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-            });
-        });
 
     // another way, without templating
 

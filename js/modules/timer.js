@@ -1,7 +1,4 @@
-function timer() {
-    //Timer
-
-    const deadline = '2023-05-11';
+function timer(id, deadline) {
 
     //function determines the difference between the deadline and current time
     function getTimeRemaining(endtime) {
@@ -66,7 +63,7 @@ function timer() {
         }
     }
 
-    setClock('.timer', deadline);
+    setClock(id, deadline);
 }
 
 export default timer;

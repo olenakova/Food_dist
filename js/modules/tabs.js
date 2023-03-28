@@ -1,0 +1,44 @@
+function tabs() {
+    //Tabs
+
+    const tabs = document.querySelectorAll('.tabheader__item'),
+          tabsContent = document.querySelectorAll('.tabcontent'),
+          tabsParent = document.querySelector('.tabheader__items');
+
+    function hideTabContent() {
+        tabsContent.forEach(item => {
+            // item.style.display = 'none';
+            item.classList.add('hide');
+            item.classList.remove('show', 'fade');
+        });
+
+        tabs.forEach(item => {
+            item.classList.remove('tabheader__item_active');
+        });
+    }
+
+    function showTabContent(i = 0) {       //if the function has no argument - by default it will be 0
+        // tabsContent[i].style.display = 'block';
+        tabsContent[i].classList.add('show', 'fade');
+        tabsContent[i].classList.remove('hide');
+        tabs[i].classList.add('tabheader__item_active');
+    }
+
+    hideTabContent();
+    showTabContent();
+
+    tabsParent.addEventListener('click', (event) => {
+        const target = event.target;
+
+        if (target && target.classList.contains('tabheader__item')) {
+            tabs.forEach((item, i) => {
+                if (target == item) {                 //we find out that this is exactly the tab that the user clicked
+                    hideTabContent();
+                    showTabContent(i);
+                }
+            });
+        }
+    });
+}
+
+module.exports = tabs;
